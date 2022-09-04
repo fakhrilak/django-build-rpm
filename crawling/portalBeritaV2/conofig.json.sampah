@@ -1,0 +1,128 @@
+[
+    {
+    "_id": "tdi1aoEBX587UDDe7PD0", 
+    "base_url": "https://search.kompas.com/search?q=", 
+    "black_list": [
+      "www.nasional.kompas.com/tren", 
+      "www.kompas.com/tren",
+      "denpasar.kompas.com/read"
+    ], 
+    "crawl_deep": 1, 
+    "source": "kompas", 
+    "status": "DRAFT", 
+    "tagContent": {
+      "item": "p", 
+      "value": null
+    }, 
+    "tagTime": {
+      "item": "div", 
+      "value": {
+        "class": "read__time"
+      }
+    }, 
+    "white_list": [
+      "kompas.com", 
+      "kompas.com", 
+      "kompas.com", 
+      "nasional.kompas.com", 
+      "nasional.kompas.com", 
+      "nasional.kompas.com",
+      "denpasar.kompas.com"
+    ],
+    "returnLink":{"start":0,"end":-2}
+  }, 
+  {
+    "_id": "3213213232", 
+    "base_url": "https://www.cnnindonesia.com/search/?query=", 
+    "black_list": [
+      "www.cnnindonesia.com/tag",
+      "www.cnnindonesia.com/gaya-hidup"
+    ], 
+    "crawl_deep": 1, 
+    "source": "cnnindonesia", 
+    "status": "DRAFT", 
+    "tagContent": {
+      "item": "p", 
+      "value": null
+    }, 
+    "tagTime": {
+      "item": "div", 
+      "value": {
+        "class": "date"
+      }
+    }, 
+    "white_list": [
+      "www.cnnindonesia.com"
+    ],
+    "returnLink":{"start":83,"end":93}
+  }, 
+  {
+    "_id": "p9i0aoEBX587UDDe2_D6", 
+    "base_url": "https://www.detik.com/search/searchall?query=", 
+    "black_list": [
+      "www.detik.com/video", 
+      "www.detik.com/x/", 
+      "www.detik.com/kolom/",
+      "news.detik.com/detiktv"
+    ], 
+    "crawl_deep": 1, 
+    "source": "detik", 
+    "status": "DRAFT", 
+    "tagContent": {
+      "item": "p", 
+      "value": null
+    }, 
+    "tagTime": {
+      "item": "div", 
+      "value": {
+        "class": "detail__date"
+      }
+    }, 
+    "white_list": [
+      "finance.detik.com/infrastruktur", 
+      "news.detik.com/internasional",
+      "www.detik.com/bali"
+    ],
+    "returnLink":{"start":49,"end":58}
+  },
+  {
+    "_id": "v9i2aoEBX587UDDeQcd", 
+    "base_url": "", 
+    "black_list": [], 
+    "crawl_deep": 1, 
+    "source": "twitter", 
+    "status": "DRAFT", 
+    "tagContent": {}, 
+    "tagTime": {}, 
+    "white_list": []
+  },
+    {
+  "crawl_deep": 1,
+  "base_url": "https://www.antaranews.com/search?q=",
+  "black_list": [
+        "antaranews.com/tag",
+        "antaranews.com/olahraga",
+        "antaranews.com/foto",
+        "antaranews.com/video",
+        "antaranews.com/sepakbola",
+        "antaranews.com/hiburan"
+    ],
+   "source": "antaranews",
+   "status": "DRAFT",
+   "white_list": [
+        "www.antaranews.com",
+        "antaranews.com"
+    ],
+    "tagContent": {
+      "item": "div",
+      "value": {"class" : "post-content clearfix"}
+    },
+    "tagTime": {
+    "item": "span", 
+    "value": {
+        "class": "article-date"
+      }
+    },
+    "returnLink": { "start": 108, "end": 171 }
+  }
+]
