@@ -9,8 +9,8 @@ setup(
  author_email="beapicrawling@multidayaintegra.com",
  license="GNU",
  url="https://github.com/multidayaintegra/beapicrawling",
- packages=["crawling/","opensearch/","portalBerita/",
- "portalBeritaV2/","portalTwitter/"],
+ packages=["crawling/","crawling/crawling/","crawling/opensearch/","crawling/portalBerita",
+ "crawling/portalBeritaV2/","crawling/portalTwitter/"],
  entry_points={
  "console_scripts": [
  "beapicrawling=beapicrawling:main",
