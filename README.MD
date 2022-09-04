@@ -6,7 +6,7 @@ python3 setup.py install
 python3 setup.py bdist --format=rpm
 
 # CHECK BEFORE BUILD
-python3 beapimicrosite.py start
+python3 beapicrawling.py start
 
 # CREATE SYSTEMED
     1. nano /etc/systemd/system/nama.service
