@@ -4,9 +4,9 @@ from setuptools import setup
 setup(
  name="beapicrawling",
  version="0.0.1",
- description="MICROSITE BE CRAWLING",
+ description="CRAWLING ENGINE RPM VERTION",
  author="beapicrawling",
- author_email="beapicrawling@multidayaintegra.com",
+ author_email="beapicrawling@zilog.online.com",
  license="GNU",
  url="https://github.com/multidayaintegra/beapicrawling",
  packages=["crawling/","crawling/crawling/","crawling/opensearch/","crawling/portalBerita",
