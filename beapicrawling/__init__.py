@@ -81,7 +81,7 @@ def main():
             jsonFile.write(jsonString)
             jsonFile.close()
 
-            os.system("python3 crawling/manage.py runserver 0:"+port)
+            os.system("python3 "+path+"/manage.py runserver 0:"+port)
         elif args.start == "stop":
             data = open((path+"/data.json"))
             data = json.load(data)
