@@ -9,9 +9,9 @@ def parse_args():
     parser.add_argument("-port",type=str,help="server crawling port default 8000")
     parser.add_argument("-kIp",type=str,help="192.x.x.x:port in string value (kafka ip)")
     parser.add_argument("-oIp",type=str,help="192.x.x.x in string value (opensearch ip)")
-    parser.add_argument("-oPort",type=int,help="in ineteger value (opensearch port)")
+    parser.add_argument("-oPort",type=str,help="in ineteger value (opensearch port)")
     parser.add_argument("-hIp",type=str,help="192.x.x.x in string value (hbase ip)")
-    parser.add_argument("-hPort",type=int,help="in integer value (hbase port)")
+    parser.add_argument("-hPort",type=str,help="in integer value (hbase port)")
     parser.add_argument("-cIp",type=str,help="in string value (config api ip)")
     parser.add_argument("-cPort",type=str,help="in string value (config api port)")
     return parser.parse_args()
@@ -44,8 +44,8 @@ def environments(params):
     ###########################################################
 
     ######################### HBASE PORT ########################
-    if(params.hPort != None):os.environ["hPort"]=str(params.hPort)
-    else:os.environ["hPort"]=str(6060)
+    if(params.hPort != None):os.environ["hbasePort"]=str(params.hPort)
+    else:os.environ["hbasePort"]=str(6060)
     ###########################################################
 
     ######################### CONFIG IP ########################
@@ -72,6 +72,11 @@ def main():
 
             port =  os.environ.get('port')
 
+            ##########################################################################################################################################
+            print(" ========= Main ",os.environ.get('port'),os.environ.get('kafkaIp'),os.environ.get('openSearchIp'),os.environ.get('openSearchPort'),
+            os.environ.get('hbaseIp'),os.environ.get('hbasePort'),os.environ.get('apiIp'),os.environ.get('apiPort')
+            )
+            ##########################################################################################################################################
             jsonenv = {
                 "port" : port
             }

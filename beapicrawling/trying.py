@@ -1,16 +1,16 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--window-size=1420,1080')
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--disable-gpu')
+# from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service
+# from webdriver_manager.chrome import ChromeDriverManager
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.keys import Keys
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.add_argument('--no-sandbox')
+# chrome_options.add_argument('--window-size=1420,1080')
+# chrome_options.add_argument('--headless')
+# chrome_options.add_argument('--disable-gpu')
 
-############################################################ DETIK COM ##########################################################
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),chrome_options=chrome_options)
+# ############################################################ DETIK COM ##########################################################
+# driver = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
 # driver.get("https://www.detik.com/search/searchall?query=TNI AL Gilimanuk&page=1")
 # elem = driver.find_elements(by=By.TAG_NAME,value='a')
 # data= []
@@ -102,9 +102,15 @@ chrome_options.add_argument('--disable-gpu')
 # for i in titleUpdate:
 #     print(i.text)
 
-import happybase
-connection = happybase.Connection("192.168.10.110",9093,autoconnect=False)
-connection.open()
-table = connection.table('DEV')
-row = table.row()
-print(row)
+# import happybase
+# connection = happybase.Connection("172.16.28.11",9090,transport='framed')
+# connection.open()
+# # table = connection.table('DEV')
+# # row = table.row()
+# print(connection.tables())
+# connection.close()
+
+from kafka import KafkaConsumer
+consumer =  KafkaConsumer('ScrappingDataHBASEOne',bootstrap_servers='almidekod01.tnial.intern:6667')
+for i in consumer:
+    print(i)

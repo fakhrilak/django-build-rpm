@@ -19,12 +19,16 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
+
+############################ CONNECTION HOSTS =====
 kafkaIp=os.environ.get('kafkaIp')
-openSearchIp=os.environ.get('opensearchIp')
+openSearchIp=os.environ.get('openSearchIp')
+openSearchPort=os.environ.get("openSearchPort")
 hbaseIp=os.environ.get('hbaseIp')
 hbasePort=os.environ.get('hbasePort')
 apiPort=os.environ.get("apiPort")
-apiIP=os.environ.get('apiIP')
+apiIP=os.environ.get('apiIp')
+############################ CONNECTION HOSTS =====
 
 class TwitterPorTals():
     def __init__(self,topicID):
@@ -111,16 +115,16 @@ class TwitterPorTals():
         producer = KafkaProducer(bootstrap_servers=[kafkaIp],
         # value_serializer=lambda m: json.dumps(m).encode('ascii')
         )
-        connection = happybase.Connection(hbaseIp,int(hbasePort),autoconnect=False)
+        connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
         connection.open()
         table = connection.table('DEV')
         count=0
-        print(" ===================== 2")
+        print(" ===================== 2",hbaseIp,hbasePort,table)
         for i in data:
             print(i," ini i =============================")
             byte = i["id"].encode('utf-8')
             row = table.row(byte)
-            print(row)
+            print(row,"============== raw")
             if row:
                 for name,dict_ in row.items():
                     stringed = name.decode("utf-8") 

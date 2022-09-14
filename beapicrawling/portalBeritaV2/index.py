@@ -13,13 +13,16 @@ from opensearchpy import OpenSearch
 import os
 router = Router()
 
+
+############################ CONNECTION HOSTS =====
 kafkaIp=os.environ.get('kafkaIp')
-openSearchIp=os.environ.get('opensearchIp')
+openSearchIp=os.environ.get('openSearchIp')
 openSearchPort=os.environ.get("openSearchPort")
 hbaseIp=os.environ.get('hbaseIp')
 hbasePort=os.environ.get('hbasePort')
 apiPort=os.environ.get("apiPort")
-apiIP=os.environ.get('apiIP')
+apiIP=os.environ.get('apiIp')
+############################ CONNECTION HOSTS =====
 
 @router.get("/news")
 def getCrawling(request,content:bool,kafka:bool,topicId:str):

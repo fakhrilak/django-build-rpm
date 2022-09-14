@@ -32,9 +32,18 @@ SECRET_KEY = 'django-insecure-r&b3#+uqsyn1%t23h_b$683k6jz)v@h1auqy(3e79oejgmfj@1
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
-
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:8080",
+    "http://192.168.110.219:3011",
+]
+CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
+MIDDLEWARE = [  # Or MIDDLEWARE_CLASSES on Django < 1.10
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'crawling.urls'

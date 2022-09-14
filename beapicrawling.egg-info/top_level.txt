@@ -1,0 +1,6 @@
+beapicrawling/
+beapicrawling/crawling/
+beapicrawling/opensearch/
+beapicrawling/portalBerita
+beapicrawling/portalBeritaV2/
+beapicrawling/portalTwitter/

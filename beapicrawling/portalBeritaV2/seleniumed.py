@@ -25,7 +25,7 @@ class Seleniumed():
                                 return True
                         return False
                     print("===================== ANTARA NEWS ========================",page,"https://www.antaranews.com/search?q="+keywords)
-                    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),chrome_options=chrome_options)
+                    driver = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
                     if page == 1:
                         driver.get("https://www.antaranews.com/search?q="+keywords)
                     else:
@@ -53,7 +53,7 @@ class Seleniumed():
                     return[]
             elif portalBerita == "detik":
                 try:
-                    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),chrome_options=chrome_options)
+                    driver = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
                     driver.get("https://www.detik.com/search/searchall?query="+keywords+"&pages="+str(page))
                     elem = driver.find_elements(by=By.TAG_NAME,value='a')
                     data= []
@@ -74,7 +74,7 @@ class Seleniumed():
                     return []
             elif portalBerita == "kompas":
                 try:
-                    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),chrome_options=chrome_options)
+                    driver = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
                     driver.get("https://search.kompas.com/search/?q="+keywords+"page="+str(page))
                     elem = driver.find_elements(by=By.TAG_NAME,value='a')
                     data= []
@@ -103,7 +103,7 @@ class Seleniumed():
             elif portalBerita == "cnnindonesia":
                 try:
                     print("===================== CNN INDONESIA ========================")
-                    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),chrome_options=chrome_options)
+                    driver = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
                     driver.get("https://www.cnnindonesia.com/search/?query="+keywords+"&pages="+str(page))
                     elem = driver.find_elements(by=By.TAG_NAME,value='a')
                     data= []

@@ -15,13 +15,19 @@ from opensearchpy import OpenSearch
 import os
 
 # test =  os.environ.get('hbasePort')
+############################ CONNECTION HOSTS =====
 kafkaIp=os.environ.get('kafkaIp')
-openSearchIp=os.environ.get('opensearchIp')
+openSearchIp=os.environ.get('openSearchIp')
+openSearchPort=os.environ.get("openSearchPort")
 hbaseIp=os.environ.get('hbaseIp')
 hbasePort=os.environ.get('hbasePort')
 apiPort=os.environ.get("apiPort")
-apiIP=os.environ.get('apiIP')
-print(kafkaIp,openSearchIp,hbaseIp,hbasePort,apiPort,apiIP)
+apiIP=os.environ.get('apiIp')
+############################ CONNECTION HOSTS =====
+
+openSearchConnection = str(openSearchIp)+":"+str(openSearchPort)
+print(kafkaIp,openSearchIp,openSearchPort,hbaseIp,hbasePort,apiPort,apiIP)
+
 class Helper():
     def __init__(self,topicId):
         self.config = ""
@@ -33,6 +39,7 @@ class Helper():
         self.selenium = Seleniumed()
         self.topicId = topicId
     def getConfig(self):
+        print(" ============== getConfig",apiIP,apiPort)
         try:
             if self.topicId == "None":
                 topic = requests.get("http://"+apiIP+":"+apiPort+"/api/v1/config/crawling/keyword-list")
@@ -52,6 +59,7 @@ class Helper():
                     }
             config = requests.get("http://"+apiIP+":"+apiPort+"/api/v1/config/source")
             self.config = json.loads(config.text)
+            print(self.config)
             self.config = self.config["data"]
             ######################DELET THIS JIKA SUDAH SIAP EAAAA######################
             # path  = __file__
@@ -196,7 +204,7 @@ class Helper():
         producer = KafkaProducer(bootstrap_servers=[kafkaIp],
         # value_serializer=lambda m: json.dumps(m).encode('ascii')
         )
-        connection = happybase.Connection(hbaseIp,int(hbasePort),autoconnect=False)
+        connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
         connection.open()
         table = connection.table('DEV')
         for i in data:

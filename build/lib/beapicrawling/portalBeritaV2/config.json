@@ -1,0 +1,42 @@
+[
+    {
+    "_id": "v9i2aoEBX587UDDeQcd", 
+    "base_url": "", 
+    "black_list": [], 
+    "crawl_deep": 1, 
+    "source": "twitter", 
+    "status": "DRAFT", 
+    "tagContent": {}, 
+    "tagTime": {}, 
+    "white_list": []
+  },
+  {
+  "crawl_deep": 1,
+  "base_url": "https://www.antaranews.com/search?q=",
+  "black_list": [
+        "antaranews.com/tag",
+        "antaranews.com/olahraga",
+        "antaranews.com/foto",
+        "antaranews.com/video",
+        "antaranews.com/sepakbola",
+        "antaranews.com/hiburan"
+    ],
+   "source": "antaranews",
+   "status": "DRAFT",
+   "white_list": [
+        "www.antaranews.com",
+        "antaranews.com"
+    ],
+    "tagContent": {
+      "item": "div",
+      "value": {"class" : "post-content clearfix"}
+    },
+    "tagTime": {
+    "item": "span", 
+    "value": {
+        "class": "article-date"
+      }
+    },
+    "returnLink": { "start": 108, "end": 171 }
+  }
+]
