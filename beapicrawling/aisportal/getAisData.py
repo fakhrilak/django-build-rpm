@@ -1,5 +1,6 @@
 import requests
 import time
+import json
 class getDataFromApiAis():
 
     def __init__(self,domainAis,KeyAccess):
@@ -9,11 +10,16 @@ class getDataFromApiAis():
     
     def requestAIS(self):
         try:
-            res = requests.request("GET",url = "http://api.tnial.mil.id/home/sit/ops/ais/675cc2ce24cecd94f8241f98a1b2e3e5fec9e99ba4f97f8106a42cf67da3ddc18848c0402b29b8f0fd3915bcd38837a8a0958f4be39a9f25dbbf9e4337f83ba8/",
+            print(self.endPoint,"inininiin")
+            res = requests.request("GET",url = self.endPoint,
             headers={},data={},verify=False)
-            print(res.text," ========== ini")
+            time.sleep(5)
             # print(res.status_code,"ini")
-            return res.text
+            if(res.status_code == 200):
+                jsoned = json.loads(res.text)
+                return jsoned["data"]["results"]
+            else:
+                return json.loads([])
         except BaseException as err:
             print(str(err))
             return str(err)
