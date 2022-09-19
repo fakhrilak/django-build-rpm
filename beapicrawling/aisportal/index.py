@@ -14,5 +14,6 @@ def getAisData(request):
     ais = getDataFromApiAis(os.environ.get('aisDom'),mykey)
     data = ais.requestAIS()
     return { 
-        "key" : mykey,
+        "message" : "success",
+        "data":data
     }
