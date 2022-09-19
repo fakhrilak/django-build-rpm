@@ -1,17 +1,18 @@
+from ninja import Router
+from aisportal.halperAis import KeyAccess
+from aisportal.getAisData import getDataFromApiAis
 import requests
-import requests_staticmock
-import json
+import os
+router = Router()
 
+@router.get("/ais")
+def getAisData(request):
 
-class MyTestClass(requests_staticmock.BaseMockClass):
-    def _api_v1_idea(self, request):
-        return json.dumps({
-            "test":"1"
-        })
+    key = KeyAccess()
+    mykey = key.myKeyAccess()
 
-session = requests.Session()
-with requests_staticmock.mock_session_with_class(session, MyTestClass, 'http://test_context.com'):
-    # will return a response object with the contents 'woop woop'
-    response = session.request('get', 'http://test_context.com/api/v1/idea')
-    session.close()
-    print(json.loads(response.text))
+    ais = getDataFromApiAis(os.environ.get('aisDom'),mykey)
+    data = ais.requestAIS()
+    return { 
+        "key" : mykey,
+    }

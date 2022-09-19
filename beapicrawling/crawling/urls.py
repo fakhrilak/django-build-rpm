@@ -8,11 +8,13 @@ from ninja import Form, Schema
 from portalBeritaV2.index import router as V2PortarBerita
 from opensearch.index import router as opensearch
 from portalTwitter.index import router as Twitter
+from aisportal.index import router as AIS
 api = NinjaAPI()
 
 # api.add_router("/", portalBerita)
 api.add_router("/v2", V2PortarBerita)
 api.add_router("/v2", Twitter)
+api.add_router("/v2",AIS)
 # test =  os.environ.get('haloyaaa')
 # print(test," ===================== ",type(test))
 

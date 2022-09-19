@@ -14,6 +14,7 @@ def parse_args():
     parser.add_argument("-hPort",type=str,help="in integer value (hbase port)")
     parser.add_argument("-cIp",type=str,help="in string value (config api ip)")
     parser.add_argument("-cPort",type=str,help="in string value (config api port)")
+    parser.add_argument("-aisDom",type=str,help="in string value")
     return parser.parse_args()
 
 def environments(params):
@@ -58,7 +59,10 @@ def environments(params):
     else:os.environ["apiPort"]=str(2001)
     ########################################################### 
 
-
+    ######################### CONFIG PORT ########################
+    if(params.aisDom != None):os.environ["aisDom"]=str(params.aisDom)
+    else:os.environ["aisDom"]=str("https://api.tnial.mil.id/")
+    ########################################################### 
 def main():
     try:
         path  = __file__
