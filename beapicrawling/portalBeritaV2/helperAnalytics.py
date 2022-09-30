@@ -13,6 +13,17 @@ from kafka import KafkaProducer
 import happybase
 from opensearchpy import OpenSearch
 import os
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--window-size=1420,1080')
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--disable-dev-shm-usage')
 
 # test =  os.environ.get('hbasePort')
 ############################ CONNECTION HOSTS =====
@@ -178,6 +189,8 @@ class Helper():
             time = soup.findAll(k["tagTime"]["item"],k["tagTime"]["value"])
             titleUpdate = soup.find("title")
             text = []
+
+            ################################################ GET TIME
             resultTime = ""
             for i in value:
                 stringText = re.sub(r'[-()\"#/@;:\n\t-=~|.?,]'," ",str(i.get_text()))
@@ -188,23 +201,61 @@ class Helper():
                 resultTime = stringText
             if(k["creator"] == "antaranews"):
                 resultTime = time[0].text
+            #########################################################################
             if len(text) == 0:
                 k["invalid_content"] = True
             else:
                 k["invalid_content"] = False
+            k["publish_date"] = self.doGetDate(k["source_url"],k["creator"])
             k["content"]=text
             k["createdAt"] = resultTime
             k["title"] = titleUpdate.text
             del k["tagTime"]
             del k["tagContent"]
         self.data = data
+    
+    def doGetDate(self,link,creator):
+        driver = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
+        driver.get(link)
+        elem = driver.find_elements(by=By.TAG_NAME,value='meta')
+        for i in elem:
+            try:
+                if creator == "detik":
+                    link = i.get_attribute("name")
+                    if link == "dtk:publishdate":
+                        tanggal = i.get_attribute("content")[0:10].replace("/","-")
+                        driver.close()
+                        return tanggal
+                elif creator == "kompas":
+                    link = i.get_attribute("name")
+                    if link == "content_PublishedDate":
+                        tanggal = i.get_attribute("content")[0:10].replace("/","-")
+                        driver.close()
+                        return tanggal
+                elif creator == "cnnindonesia":
+                    link = i.get_attribute("name")
+                    if link == "dtk:publishdate":
+                        tanggal = i.get_attribute("content")[0:10].replace("/","-")
+                        driver.close()
+                        return tanggal
+                elif creator == "antaranews":
+                    link = i.get_attribute("property")
+                    if link == "article:published_time":
+                        tanggal = i.get_attribute("content")[0:10].replace("/","-")
+                        driver.close()
+                        return tanggal
+            except BaseException as err:
+                print(err)
+                return "-"
+
     def doSendKafka(self):
         count = 0
         data = self.data
         producer = KafkaProducer(bootstrap_servers=[kafkaIp],
         # value_serializer=lambda m: json.dumps(m).encode('ascii')
         )
-        connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
+        # connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
+        connection = happybase.Connection(hbaseIp,int(hbasePort))
         connection.open()
         table = connection.table('DEV')
         for i in data:

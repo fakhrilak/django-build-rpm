@@ -103,28 +103,42 @@ class TwitterPorTals():
                             "user": k._json["user"]["id_str"],
                             "userinfo": k._json["user"],
                             "page":"",
-                            "types":"twitter"
+                            "types":"twitter",
+                            "publish_date":self.doGetDate(k._json["created_at"])
                         }
                         )
         self.data = data
+    
+    def doGetDate(self,date):
+        tanggal = date.split(" ")
+        month_name = tanggal[1]
+        datetime_object = datetime.datetime.strptime(month_name, "%b")
+        month_number = datetime_object.month
+        mouthstr = str(month_number)
+        if len(mouthstr) == 1:
+            mouthstr = '0'+mouthstr
+        return tanggal[5]+"-"+mouthstr+"-"+tanggal[2]
+        # return ""
+
     def doSendKafka(self):
-        print("============= MASUK KAFKA")
+        # print("============= MASUK KAFKA")
         data = self.data
-        print(" ================= 1")
+        # print(" ================= 1")
         # data = self.data
         producer = KafkaProducer(bootstrap_servers=[kafkaIp],
         # value_serializer=lambda m: json.dumps(m).encode('ascii')
         )
-        connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
+        # connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
+        connection = happybase.Connection(hbaseIp,int(hbasePort))
         connection.open()
         table = connection.table('DEV')
         count=0
-        print(" ===================== 2",hbaseIp,hbasePort,table)
+        # print(" ===================== 2",hbaseIp,hbasePort,table)
         for i in data:
-            print(i," ini i =============================")
+            # print(i," ini i =============================")
             byte = i["id"].encode('utf-8')
             row = table.row(byte)
-            print(row,"============== raw")
+            # print(row,"============== raw")
             if row:
                 for name,dict_ in row.items():
                     stringed = name.decode("utf-8") 
