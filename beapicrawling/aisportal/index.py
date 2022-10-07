@@ -13,7 +13,7 @@ hbaseIp=os.environ.get('hbaseIp')
 hbasePort=os.environ.get('hbasePort')
 router = Router()
 # connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
-connection = happybase.Connection(hbaseIp,int(hbasePort))
+# connection = happybase.Connection(hbaseIp,int(hbasePort))
 @router.get("/ais")
 def getAisData(request,kafka:bool):
 
@@ -33,6 +33,7 @@ def getAisData(request,kafka:bool):
 def addAisHistory(request,mmishash:str,mmis:str):
     print("req masuk")
     # connection = happybase.Connection(hbaseIp,int(hbasePort))
+    connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
     connection.open()
     table = connection.table('AIS_HISTORY')
     row = table.row(mmis.encode('utf-8'))
@@ -71,6 +72,7 @@ def addAisHistory(request,mmishash:str,mmis:str):
 def getData(request,mmis:str,page:str,size:str):
     try:
         # connection = happybase.Connection(hbaseIp,int(hbasePort))
+        connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
         connection.open()
         table = connection.table('AIS_HISTORY')
         row = table.row(mmis.encode('utf-8'))
