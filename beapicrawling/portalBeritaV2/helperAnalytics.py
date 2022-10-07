@@ -254,8 +254,8 @@ class Helper():
         producer = KafkaProducer(bootstrap_servers=[kafkaIp],
         # value_serializer=lambda m: json.dumps(m).encode('ascii')
         )
-        # connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
-        connection = happybase.Connection(hbaseIp,int(hbasePort))
+        connection = happybase.Connection(hbaseIp,int(hbasePort),transport='framed')
+        # connection = happybase.Connection(hbaseIp,int(hbasePort))
         connection.open()
         table = connection.table('DEV')
         for i in data:
