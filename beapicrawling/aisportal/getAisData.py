@@ -5,6 +5,7 @@ import os
 import hashlib
 from kafka import KafkaProducer
 import os
+import datetime
 
 kafkaIp=os.environ.get('kafkaIp')
 openSearchIp=os.environ.get('openSearchIp')
@@ -50,6 +51,23 @@ class getDataFromApiAis():
             print(str(err))
             return str(err)
 
+    def convertDateTime(self,data):
+        try:
+            splited =  data.split(" ")
+            # day = splited[1]
+            # mouth = splited[2]
+            # year = splited[3]
+            # month_name = splited[2]
+            # month_num = datetime.datetime.strptime(month_name, '%b').month
+            # if len(str(month_num)) == 1:
+            #     month_num = "0"+str(month_num)
+            # else:
+            #     month_num = str(month_num)
+            # return (year+"-"+str(month_num)+"-"+day)
+            return splited[0]
+        except BaseException as err:
+            return "-"
+
     def doSendKafka(self):
         try:
             producer = KafkaProducer(bootstrap_servers=[kafkaIp],
@@ -60,6 +78,19 @@ class getDataFromApiAis():
                 print(" ========= Sending to Kafka ",count)
                 i["ais_id"] = hashlib.md5(i["mmsi"].encode('utf-8')).hexdigest()
                 i["ais_pos_id"]=hashlib.md5((i["mmsi"]+"_"+i["date_time"]).encode('utf-8')).hexdigest()
+                i["date_time"] = self.convertDateTime(i["date_time"])
+                # i["map_location"] = {
+                #     "lon" : str(i["longitude"]),
+                #     "lat" : str(i["latitude"])
+                # }
+                # i["geometry"]= {
+                #     "type": "Point",
+                #             "coordinates": [
+                #                 str(i["longitude"]),
+                #                 str(i["latitude"])
+                #         ]
+                # }
+                print(" ======================== " ,i , " ======================== SEBELUM PRODUCE")
                 producer.send('AISCollect',  json.dumps(i).encode('utf-8'))
                 count +=1
                 time.sleep(0.1)
